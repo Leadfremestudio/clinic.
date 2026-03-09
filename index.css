@@ -1,0 +1,203 @@
+/* Custom CSS for Clinical Boutique */
+
+:root {
+  --primary: rgb(0, 61, 76);
+  --accent: rgb(0, 61, 76);
+}
+
+html {
+  background-color: rgb(242, 240, 233);
+}
+
+/* Hide scrollbar for cleaner aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 61, 76, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Scroll Line Animation */
+@keyframes scroll-line {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+/* Micro-UI: Diagnostic Shuffler */
+.shuffler-container {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+/* Micro-UI: Laser Scan */
+@keyframes scan {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+.animate-scan {
+  animation: scan 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Micro-UI: EKG Waveform */
+.ekg-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: ekg-draw 4s linear infinite;
+}
+@keyframes ekg-draw {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 1;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+}
+
+/* Spin Slow for Architecture */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Scrolled Navbar state applied via JS */
+.nav-scrolled {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #1a1a1a !important;
+  mix-blend-mode: normal !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.nav-scrolled a:hover {
+  color: var(--accent) !important;
+}
+
+.nav-scrolled button {
+  border-color: rgba(26, 26, 26, 0.2) !important;
+  color: #1a1a1a !important;
+}
+
+.nav-scrolled button:hover {
+  background-color: #1a1a1a;
+  color: white !important;
+}
+
+/* Remove CSS Sticky from Stack Cards, preparing for GSAP Pin */
+.stack-card {
+  position: relative; /* Not sticky, GSAP handles this */
+}
+
+/* Typewriter cursor blink */
+#typewriter::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Custom Mouse Cursor */
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  .cursor-pointer,
+  label {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  background-color: black;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  display: none;
+}
+
+@media (pointer: fine) {
+  .custom-cursor {
+    display: block;
+  }
+}
+
+.custom-cursor.cursor-light {
+  background-color: #ffffff !important;
+}

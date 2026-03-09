@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinic.</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "rgb(0 61 76)",
+              accent: "rgb(0 61 76)",
+              background: "rgb(242 240 233)",
+              charcoal: "#000000",
+            },
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              serif: ['"Cormorant Garamond"', "serif"],
+              mono: ['"IBM Plex Mono"', "monospace"],
+            },
+            borderRadius: {
+              "4xl": "2.5rem",
+            },
+            letterSpacing: {
+              tight: "-0.02em",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background text-charcoal font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-white"
+  >
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="custom-cursor"></div>
+
+    <!-- Global Grain Filter -->
+    <svg class="hidden">
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.6"
+          numOctaves="3"
+          stitchTiles="stitch"
+        />
+      </filter>
+    </svg>
+    <div
+      class="fixed inset-0 pointer-events-none opacity-5 z-[9999]"
+      style="filter: url(#noiseFilter)"
+    ></div>
+
+    <!-- The Floating Island (Navbar) -->
+    <header
+      id="navbar"
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-full px-8 py-4 w-[90%] max-w-5xl transition-all duration-500 border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-between text-white"
+    >
+      <div class="font-bold text-xl tracking-tight relative z-50">Clinic.</div>
+      <nav class="hidden md:flex gap-8 font-semibold text-base tracking-wide">
+        <a
+          href="#problem-solution-section"
+          class="hover:text-amber-200 transition-colors"
+          >About Us</a
+        >
+        <a href="#services" class="hover:text-amber-200 transition-colors"
+          >Services</a
+        >
+        <a href="#contact" class="hover:text-amber-200 transition-colors"
+          >Contact Us</a
+        >
+      </nav>
+      <div class="flex items-center gap-4">
+        <button
+          class="hidden md:block magnetic-btn border border-white/30 rounded-full px-6 py-2 text-sm font-semibold hover:border-white transition-colors"
+        >
+          Get Started
+        </button>
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none z-50 relative group"
+        >
+          <span
+            class="block w-6 h-0.5 bg-white transition-transform duration-300 origin-center"
+          ></span>
+          <span
+            class="block w-6 h-0.5 bg-white transition-opacity duration-300"
+          ></span>
+          <span
+            class="block w-6 h-0.5 bg-white transition-transform duration-300 origin-center"
+          ></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 bg-primary/95 backdrop-blur-md z-40 translate-x-full transition-transform duration-500 flex flex-col items-center justify-center pointer-events-none"
+    >
+      <nav
+        class="flex flex-col gap-8 font-semibold text-2xl tracking-wide text-center text-white"
+      >
+        <a
+          href="#problem-solution-section"
+          class="mobile-nav-link hover:text-amber-200 transition-colors"
+          >About Us</a
+        >
+        <a
+          href="#services"
+          class="mobile-nav-link hover:text-amber-200 transition-colors"
+          >Services</a
+        >
+        <a
+          href="#contact"
+          class="mobile-nav-link hover:text-amber-200 transition-colors"
+          >Contact Us</a
+        >
+        <button
+          class="border border-white/30 rounded-full px-8 py-3 text-lg mt-4 font-semibold hover:border-white transition-colors"
+        >
+          Get Started
+        </button>
+      </nav>
+    </div>
+
+    <!-- The Opening Shot (Hero) -->
+    <section
+      id="hero"
+      class="relative w-full min-h-[100dvh] flex flex-col justify-center overflow-hidden pt-32 pb-20"
+    >
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <div
+          class="absolute inset-0 bg-primary/30 mix-blend-multiply z-10"
+        ></div>
+        <!-- Gradient to make text pop -->
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10"
+        ></div>
+        <img
+          src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2070&auto=format&fit=crop"
+          alt="Dental Care"
+          class="w-full h-full object-cover scale-105"
+          id="hero-img"
+        />
+      </div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 px-6 md:px-12 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12"
+      >
+        <!-- Left Text -->
+        <div class="text-left text-white max-w-3xl lg:w-3/5">
+          <h1
+            class="hero-text font-sans font-medium text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-[1.1] text-white"
+          >
+            We make your clinic present to the world.
+          </h1>
+          <p class="text-white/90 text-sm md:text-base leading-relaxed mt-8">
+            we engineer high-converting, premium websites that build immediate
+            trust with patients, elevate your clinic's brand, and turn online
+            visitors into booked appointments.
+          </p>
+          <div
+            class="hero-text mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6"
+          >
+            <a
+              href="#contact"
+              class="magnetic-btn bg-white text-black px-6 py-3.5 rounded-full font-bold text-sm md:text-base inline-flex items-center gap-2 overflow-hidden relative group transition-colors"
+            >
+              <span class="relative z-10">Contact Us</span>
+              <svg
+                class="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+              <span
+                class="absolute inset-0 bg-gray-200 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"
+              ></span>
+            </a>
+            <a
+              href="#services"
+              class="text-white hover:text-white/80 transition-colors text-sm md:text-base flex items-center gap-2"
+            >
+              Our Services
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Glass Card -->
+        <div class="hero-text lg:w-2/5 flex lg:justify-end w-full lg:mt-32">
+          <div
+            class="bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 md:p-8 shadow-2xl max-w-sm"
+          >
+            <div
+              class="text-2xl md:text-2xl font-sans font-medium mb-3 text-white"
+            >
+              premium digital presence <br />
+              expertly crafted websites to make your clinic modern.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unified Problem & Solution Section -->
+    <section
+      id="problem-solution-section"
+      class="relative w-full h-[100dvh] bg-white flex flex-col items-center justify-center overflow-hidden z-20"
+    >
+      <!-- Images Wrapper (Responsive) -->
+      <div
+        class="absolute inset-0 w-full h-full pointer-events-none block overflow-hidden"
+      >
+        <!-- Problem Images Group -->
+        <div
+          id="problem-images-group"
+          class="absolute inset-0 w-full h-full will-change-transform"
+        >
+          <!-- TOP LEFT QUADRANT -->
+          <div
+            class="absolute top-[2%] left-[2%] md:top-[25%] md:left-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <video
+              src="https://assets.mixkit.co/videos/preview/mixkit-medical-professional-checking-patient-in-hospital-bed-35323-large.mp4"
+              class="w-full h-full object-cover"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+          </div>
+          <div
+            class="hidden md:block absolute top-[20%] left-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Waiting Room"
+            />
+          </div>
+          <!-- BOTTOM LEFT QUADRANT -->
+          <div
+            class="absolute bottom-[2%] left-[2%] md:bottom-[20%] md:left-[3%] w-20 h-20 md:w-32 md:h-32 xl:w-36 xl:h-36 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Patient Care"
+            />
+          </div>
+          <div
+            class="hidden md:block absolute bottom-[15%] left-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <video
+              src="https://assets.mixkit.co/videos/preview/mixkit-medical-workers-walking-in-a-hospital-corridor-41666-large.mp4"
+              class="w-full h-full object-cover"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+          </div>
+          <!-- TOP RIGHT QUADRANT -->
+          <div
+            class="hidden md:block absolute top-[20%] right-[18%] w-32 h-32 xl:w-36 xl:h-36 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/100398.jpg"
+              class="w-full h-full object-cover"
+              alt="Busy Clinic"
+            />
+          </div>
+          <div
+            class="absolute top-[2%] right-[2%] md:top-[25%] md:right-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/84771.jpg"
+              class="w-full h-full object-cover"
+              alt="Slow Loading Computer"
+            />
+          </div>
+          <!-- BOTTOM RIGHT QUADRANT -->
+          <div
+            class="hidden md:block absolute bottom-[15%] right-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Data Analysis"
+            />
+          </div>
+          <div
+            class="absolute bottom-[2%] right-[2%] md:bottom-[20%] md:right-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 xl:w-36 xl:h-36 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <video
+              src="https://assets.mixkit.co/videos/preview/mixkit-patient-getting-an-x-ray-in-a-dental-clinic-41680-large.mp4"
+              class="w-full h-full object-cover"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+          </div>
+        </div>
+
+        <!-- Solution Images Group -->
+        <div
+          id="solution-images-group"
+          class="absolute inset-0 w-full h-full translate-y-full will-change-transform"
+        >
+          <!-- TOP LEFT QUADRANT -->
+          <div
+            class="absolute top-[2%] left-[2%] md:top-[25%] md:left-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/100398.jpg"
+              class="w-full h-full object-cover"
+              alt="Web Development"
+            />
+          </div>
+          <div
+            class="hidden md:block absolute top-[20%] left-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Web Development"
+            />
+          </div>
+          <!-- BOTTOM LEFT QUADRANT -->
+          <div
+            class="absolute bottom-[2%] left-[2%] md:bottom-[20%] md:left-[3%] w-20 h-20 md:w-32 md:h-32 xl:w-36 xl:h-36 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Team Collaboration"
+            />
+          </div>
+          <div
+            class="hidden md:block absolute bottom-[15%] left-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/11280.jpg"
+              class="w-full h-full object-cover"
+              alt="Team Collaboration"
+            />
+          </div>
+          <!-- TOP RIGHT QUADRANT -->
+          <div
+            class="hidden md:block absolute top-[20%] right-[18%] w-32 h-32 xl:w-36 xl:h-36 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Modern Setup"
+            />
+          </div>
+          <div
+            class="absolute top-[2%] right-[2%] md:top-[25%] md:right-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Modern Clinic"
+            />
+          </div>
+          <!-- BOTTOM RIGHT QUADRANT -->
+          <div
+            class="hidden md:block absolute bottom-[15%] right-[18%] w-32 h-32 xl:w-40 xl:h-40 rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/pexels-cedric-fauntleroy-4269488.jpg"
+              class="w-full h-full object-cover"
+              alt="Professional Interface"
+            />
+          </div>
+          <div
+            class="absolute bottom-[2%] right-[2%] md:bottom-[20%] md:right-[3%] w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 xl:w-36 xl:h-36 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-lg"
+          >
+            <img
+              src="images/84771.jpg"
+              class="w-full h-full object-cover"
+              alt="Professional Interface"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Central Content -->
+      <div
+        class="relative z-10 px-6 w-full max-w-[800px] text-center flex flex-col items-center justify-center bg-white/80 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none rounded-[2rem] py-12 lg:py-0 min-h-[400px]"
+      >
+        <!-- Problem Text -->
+        <div
+          id="central-problem"
+          class="absolute flex flex-col items-center justify-center px-6 max-w-[800px] opacity-0 translate-y-12"
+        >
+          <h2
+            class="font-sans text-[rgb(0,61,76)] text-[24px] lg:text-[28px] mb-6 font-medium"
+          >
+            Does your clinic face this?
+          </h2>
+          <p
+            class="font-sans text-[#111111] text-[18px] lg:text-[22px] leading-[1.6]"
+          >
+            Patients now search online before choosing a clinic, yet many
+            clinics still operate only in the physical space. When your clinic
+            is not easily found online, potential patients move to competitors
+            who appear in search results and provide simple ways to view
+            services or book appointments.
+          </p>
+        </div>
+
+        <!-- Solution Text -->
+        <div
+          id="central-solution"
+          class="absolute flex flex-col items-center justify-center opacity-0 translate-y-12 px-6 max-w-[800px]"
+        >
+          <h2
+            class="font-sans text-[rgb(0,61,76)] text-[20px] lg:text-[24px] mb-6 font-medium"
+          >
+            We build your online presence.
+          </h2>
+          <p
+            class="font-sans text-[#111111] text-[22px] lg:text-[22px] leading-[1.4] md:leading-[1.5]"
+          >
+            We build clinic-focused websites that help your practice stand out
+            online. Your doctors, specialties, and services are clearly
+            presented so patients can easily understand the care you provide.
+            Patients can quickly find your clinic, build trust in your
+            expertise, and book appointments easily without unnecessary steps.
+          </p>
+        </div>
+        <!-- Result Text -->
+        <div
+          id="central-result"
+          class="absolute flex flex-col items-center justify-center opacity-0 translate-y-12 px-6 max-w-[800px]"
+        >
+          <h2
+            class="font-sans text-[rgb(0,61,76)] text-[20px] lg:text-[24px] mb-6 font-medium"
+          >
+            The Result.
+          </h2>
+          <p
+            class="font-sans text-[#111111] text-[22px] lg:text-[22px] leading-[1.4] md:leading-[1.5]"
+          >
+            Patients spend less time searching and more time connecting with
+            your clinic. Clear information, organized doctor profiles, and
+            straightforward booking remove confusion and make the patient
+            journey simpler. Your clinic becomes easier to approach, easier to
+            trust, and easier to choose.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mobile View Images -->
+      <div
+        class="flex lg:hidden absolute bottom-[5%] left-0 right-0 justify-center w-full pointer-events-none h-32 overflow-hidden z-20"
+      >
+        <div
+          id="mobile-problem-images"
+          class="absolute inset-x-0 top-0 flex flex-wrap justify-center gap-4 px-4 will-change-transform"
+        >
+          <div
+            class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] overflow-hidden shadow-sm"
+          >
+            <img
+              src="images/100398.jpg"
+              class="w-full h-full object-cover"
+              alt="Professional Interface"
+            />
+          </div>
+          <div
+            class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] overflow-hidden shadow-sm"
+          >
+            <img
+              src="images/problem-1.avif"
+              class="w-full h-full object-cover"
+              alt="Clinic Visual"
+            />
+          </div>
+        </div>
+        <div
+          id="mobile-solution-images"
+          class="absolute inset-x-0 top-0 flex flex-wrap justify-center gap-4 px-4 translate-y-full will-change-transform"
+        >
+          <div
+            class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] overflow-hidden shadow-sm"
+          >
+            <img
+              src="images/100398.jpg"
+              class="w-full h-full object-cover"
+              alt="Professional Interface"
+            />
+          </div>
+          <div
+            class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] overflow-hidden shadow-sm"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+              alt="Clinic Visual"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- The Stacking Protocol (Services) -->
+    <section id="services" class="relative bg-charcoal w-full">
+      <!-- Card 1 -->
+      <div
+        class="stack-card h-[100dvh] w-full flex items-center justify-center sticky top-0 border-b border-white/10 overflow-hidden"
+        style="background-color: #002b36; z-index: 1"
+      >
+        <div
+          class="max-w-5xl mx-auto px-4 w-full flex flex-col md:flex-row items-center gap-12"
+        >
+          <div class="md:w-1/2">
+            <div class="font-mono text-white text-sm mb-4">01. Service</div>
+            <h2
+              class="font-sans font-medium text-3xl md:text-7xl text-white mb-6"
+            >
+              Website Service
+            </h2>
+            <p class="font-sans text-white/70 text-lg max-w-md">
+              High-performance digital presences tailored to convert local
+              search traffic. We move beyond generic templates to build custom
+              acquisition engines that prioritize speed, accessibility, and
+              conversion-centric design.
+            </p>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <img src="images/web-video.avif" class="rounded-[2rem]" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div
+        class="stack-card h-[100dvh] w-full flex items-center justify-center sticky top-0 border-b border-white/10 overflow-hidden bg-background"
+        style="z-index: 2"
+      >
+        <div
+          class="max-w-5xl mx-auto px-4 w-full flex flex-col md:flex-row items-center gap-12"
+        >
+          <div class="md:w-1/2">
+            <div class="font-mono text-accent text-sm mb-4">
+              02. Convenience
+            </div>
+            <h2
+              class="font-sans font-medium text-3xl md:text-7xl text-black mb-6"
+            >
+              Patient Booking
+            </h2>
+            <p class="font-sans text-black/70 text-lg max-w-md">
+              A simple and organized way for patients to schedule appointments with your clinic online. Patients can view available time slots, choose their preferred doctor, and book appointments quickly without calling or visiting the clinic.
+            </p>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <img
+              src="images/patient-booking.avif"
+              class="w-1/2 md:w-3/5 rounded-[2rem]"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div
+        class="stack-card h-[100dvh] w-full flex items-center justify-center sticky top-0 overflow-hidden"
+        style="background-color: rgb(0, 43, 54); z-index: 3"
+      >
+        <div
+          class="max-w-5xl mx-auto px-4 w-full flex flex-col md:flex-row items-center gap-12"
+        >
+          <div class="md:w-1/2">
+            <div class="font-mono text-white/60 text-sm mb-4">
+              03. Management
+            </div>
+            <h2
+              class="font-sans font-medium text-3xl md:text-7xl text-white mb-6"
+            >
+              Admin Panel
+            </h2>
+            <p class="font-sans text-white/70 text-lg max-w-md">
+              A centralized dashboard that allows your clinic to manage appointments, doctors, schedules, and patient requests from one place. The admin panel provides full control to update your doctor profiles, adjust available time slots, monitor bookings, and keep clinic information organized and up to date.
+            </p>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <img src="images/admin-video.avif" class="rounded-[2rem]" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manifesto & Footer -->
+    <section
+      id="manifesto"
+      class="py-40 px-4 bg-background relative z-10 flex flex-col items-center justify-center min-h-[80dvh]"
+    >
+      <div class="max-w-4xl mx-auto text-center">
+        <h4
+          class="font-sans font-bold text-lg md:text-xl text-primary/70 mb-8 tracking-tight"
+        >
+          Most agencies focus on: Generic Templates.
+        </h4>
+        <h2
+          class="font-sans font-medium text-3xl md:text-6xl lg:text-7xl text-primary leading-tight mb-16 manifesto-text"
+        >
+          We focus on:<br />Unfair Advantages.
+        </h2>
+
+        <a
+          href="#"
+          class="magnetic-btn bg-primary text-white px-10 py-5 rounded-full text-1xl inline-flex overflow-hidden relative group"
+        >
+          <span class="relative z-10 flex items-center gap-2">
+            Dominate My Local Market
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="group-hover:translate-x-1 transition-transform"
+            >
+              <path
+                d="M5 12h14M12 5l7 7-7 7"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span
+            class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0"
+          ></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact & Form Section -->
+    <section
+      id="contact"
+      class="relative py-32 px-6 bg-white z-10 border-t border-gray-100"
+    >
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
+        <div class="lg:w-1/2">
+          <h2
+            class="font-sans font-medium text-4xl md:text-5xl lg:text-6xl text-primary mb-6"
+          >
+            ready to transform your clinic?
+          </h2>
+          <p class="font-sans text-gray-600 text-lg md:text-xl mb-12 max-w-lg">
+            fill out the form below to see how our engineered digital presence
+            can build immediate trust and drive patient acquisition for your
+            clinic.
+          </p>
+
+          <div class="flex flex-col gap-8">
+            <div class="flex items-start gap-5">
+              <div
+                class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center shrink-0 text-primary transition-transform hover:scale-105 hover:bg-primary/10 cursor-pointer"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="font-sans font-bold text-lg text-primary">
+                  email us
+                </h4>
+                <p class="text-gray-500 font-medium">hello@cliniclanding.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:w-1/2">
+          <script>
+            var submitted = false;
+          </script>
+          <iframe
+            name="hidden_iframe"
+            id="hidden_iframe"
+            style="display: none"
+            onload="
+              if (submitted) {
+                document
+                  .getElementById('success-message')
+                  .classList.remove('hidden');
+                document.getElementById('contact-form').reset();
+                setTimeout(
+                  () =>
+                    document
+                      .getElementById('success-message')
+                      .classList.add('hidden'),
+                  5000,
+                );
+                submitted = false;
+              }
+            "
+          ></iframe>
+
+          <form
+            id="contact-form"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSfmMc5akXrN1GbFNVBI54jrpmIY8RggIZPsWZZgu2_BkkyNmg/formResponse"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="submitted = true"
+            class="bg-gray-50 rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100/50 flex flex-col gap-6 relative overflow-hidden"
+          >
+            <!-- decorative blur -->
+            <div
+              class="absolute -top-10 -right-10 w-40 h-40 bg-accent/10 rounded-full blur-3xl pointer-events-none"
+            ></div>
+
+            <div class="flex flex-col gap-2 relative z-10">
+              <label
+                for="name"
+                class="font-sans font-semibold text-sm text-gray-700"
+                >name</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="entry.2055620912"
+                placeholder="john doe"
+                required
+                class="px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all bg-white w-full placeholder-gray-400"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2 relative z-10">
+              <label
+                for="email"
+                class="font-sans font-semibold text-sm text-gray-700"
+                >email address</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="entry.904887311"
+                placeholder="john@example.com"
+                required
+                class="px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all bg-white w-full placeholder-gray-400"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2 relative z-10">
+              <label
+                for="message"
+                class="font-sans font-semibold text-sm text-gray-700"
+                >how can we help?</label
+              >
+              <textarea
+                id="message"
+                rows="4"
+                name="entry.842997548"
+                placeholder="tell us about your clinic..."
+                required
+                class="px-5 py-4 rounded-xl border border-gray-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all bg-white w-full resize-none placeholder-gray-400"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="magnetic-btn bg-primary text-white font-bold text-lg py-4 rounded-xl mt-4 hover:bg-primary/95 hover:shadow-lg transition-all cursor-pointer w-full relative z-10"
+            >
+              send message
+            </button>
+            <div
+              id="success-message"
+              class="hidden text-green-600 font-semibold text-center mt-2 relative z-10"
+            >
+              Thank you! Your message has been sent successfully.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-charcoal text-white/50 pt-20 pb-10 px-6 z-10 relative">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 mb-20"
+      >
+        <div class="md:w-1/3">
+          <div class="font-bold text-3xl tracking-tight text-white mb-6">
+            Clinic.
+          </div>
+          <p class="text-sm leading-relaxed max-w-sm">
+            engineered digital experiences for modern clinics. we build custom
+            websites that convert local search traffic into loyal patients.
+          </p>
+        </div>
+
+        <div
+          class="flex flex-wrap md:flex-nowrap gap-16 md:gap-24 w-full md:w-auto"
+        >
+          <div class="flex flex-col gap-4 text-sm mt-2">
+            <h5
+              class="text-white font-bold mb-2 uppercase tracking-wide text-xs"
+            >
+              navigation
+            </h5>
+            <a href="#hero" class="hover:text-amber-200 transition-colors"
+              >Home</a
+            >
+            <a
+              href="#problem-solution-section"
+              class="hover:text-amber-200 transition-colors"
+              >About Us</a
+            >
+            <a href="#services" class="hover:text-amber-200 transition-colors"
+              >Our Services</a
+            >
+            <a href="#contact" class="hover:text-amber-200 transition-colors"
+              >Contact Us</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono opacity-80"
+      >
+        <p>
+          &copy; 2026 Clinic Digital Transformation. All Protocols Standardized.
+        </p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-amber-200 transition-colors"
+            >Privacy Policy</a
+          >
+          <a href="#" class="hover:text-amber-200 transition-colors"
+            >Terms of Service</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="problem-solution.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
